@@ -8,11 +8,12 @@ module.exports = function (grunt) {
         /** minify js files */
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                preserveComments: require('uglify-save-license')
             },
             assets: {
                 files: {
-                    'dist/assets/js/main.min.js': ['build/js/**/*.js']
+                    'dist/assets/js/main.min.js': ['src/js/**/*.js']
                 }
             }
         },
@@ -22,6 +23,9 @@ module.exports = function (grunt) {
             single: {
                 files: {
                     'dist/assets/js/packages/jquery.min.js': ['./bower_components/jquery/dist/jquery.min.js'],
+                    'dist/assets/js/packages/skel.min.js': ['./bower_components/skel/dist/skel.min.js'],
+                    'dist/assets/js/packages/html5shiv.min.js': ['./bower_components/html5shiv/dist/html5shiv.min.js'],
+                    'dist/assets/js/packages/respond.min.js': ['./bower_components/respond/dest/respond.min.js'],
                 }
             },
             fontawesome: {
@@ -37,6 +41,8 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'build/css/theme/main.css': 'src/scss/main.scss',
+                    'build/css/theme/ie8.css': 'src/scss/ie8.scss',
+                    'build/css/theme/ie9.css': 'src/scss/ie9.scss'
                 }
             }
         },
@@ -50,7 +56,9 @@ module.exports = function (grunt) {
                     dest: 'dist/asset/css',
                     ext: '.min.css'
                 }, {
-                        'dist/assets/css/theme/main.min.css': ['build/css/theme/main.css']
+                        'dist/assets/css/theme/main.min.css': ['build/css/theme/main.css'],
+                        'dist/assets/css/theme/ie8.min.css': ['build/css/theme/ie8.css'],
+                        'dist/assets/css/theme/ie9.min.css': ['build/css/theme/ie9.css']
                     }]
             }
         },
@@ -60,8 +68,8 @@ module.exports = function (grunt) {
             options: {
                 data: ['config.json'], 
                 layout: 'base.hbs',
-                layoutdir: './src/layouts',
-                partials: './src/partials/**/*.hbs'
+                layoutdir: './src/view/layouts',
+                partials: './src/view/partials/**/*.hbs'
             },
 
             /** base files**/
@@ -70,7 +78,7 @@ module.exports = function (grunt) {
                     layout: 'base.hbs'
                 },
                 files: [{
-                    cwd: './src/pages/',
+                    cwd: './src/view/pages/',
                     dest: 'dist/',
                     expand: true,
                     src: '**/*.hbs'
@@ -82,7 +90,7 @@ module.exports = function (grunt) {
                     layout:'post.hbs'
                 },
                 files:[{
-                    cwd: './src/posts/',
+                    cwd: './src/view/posts/',
                     dest: 'dist/posts',
                     expand: true,
                     src: '**/*.md'
