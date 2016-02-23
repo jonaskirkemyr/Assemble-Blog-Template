@@ -1,0 +1,18 @@
+{
+    "project": {
+        "name": "Test Blog",
+        "version": "0.1.0",
+        "copyright": 2016
+    },
+    "path": {
+        "baseurl": "http://localhost:8080",
+        "asset": "/assets"
+    },
+    "author": {
+        "kirkemyr": {
+            "name": "Jonas Kirkemyr",
+            "email": "jonas@kirkemyr.no"
+        }
+    },
+    "debug": true
+}

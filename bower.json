@@ -1,0 +1,25 @@
+{
+  "name": "jonastncom",
+  "authors": [
+    "Jonas Kirkemyr <jonas@kirkemyr.no>"
+  ],
+  "description": "My personal website created with assemble.io",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "http://jonastn.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "fontawesome#~4.5.0",
+    "jquery": "~2.2.0"
+  }
+}
