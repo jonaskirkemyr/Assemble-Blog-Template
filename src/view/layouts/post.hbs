@@ -1,0 +1,30 @@
+---
+layout: base.hbs
+---
+
+<article class="post">
+    <header>
+        <div class="title">
+            <h2><a href="#">{{title}}</a></h2>
+            <p>{{summary}}</p>
+        </div>
+        
+        <div class="meta">
+            <time class="published" datetime="{{created}}">{{created}}</time>
+            <a href="mailto:{{author.email}}" class="author">
+                <span class="name">{{author.name}}</span>
+                {{#if author.img}}
+                    <img src="{{author.img}}" alt=="{{author.name}}"/>
+                {{/if}}
+            </a>
+        </div>
+    </header>
+    
+    <section>
+        {{!content}}
+        {{#markdown}}
+        {{>body}}
+        {{/markdown}}
+    </section>
+
+</article>
