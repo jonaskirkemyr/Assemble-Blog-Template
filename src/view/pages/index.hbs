@@ -1,2 +1,4 @@
 {{! List posts}}
-
+{{#withSort posts "created" dir="desc"}}
+{{>postListMd}}
+{{/withSort}}

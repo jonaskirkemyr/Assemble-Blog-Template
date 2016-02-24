@@ -1,0 +1,23 @@
+{{!
+    title   - title of the post
+    summary - short summary of the post
+    created - date when post were written
+    author  - author object
+        email - author email
+        name  - author full name
+        img   - profile picture for author
+}}
+<header>
+    <div class="title">
+        <h2><a href="#">{{title}}</a></h2>
+        <p>{{summary}}</p>
+    </div>
+
+    <div class="meta">
+        <time class="published" datetime="{{created}}">{{created}}</time>
+        <a href="mailto:{{author.email}}" class="author">
+            <span class="name">{{author.name}}</span> {{#if author.img}}
+            <img src="{{author.img}}" alt=="{{author.name}}" /> {{/if}}
+        </a>
+    </div>
+</header>
