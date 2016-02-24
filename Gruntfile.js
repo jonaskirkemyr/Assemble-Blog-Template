@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         /** generating static files */
         assemble: {
             options: {
-                data: ['config.json'], 
+                data: ['config.json','dist/posts.json'],
                 layout: 'base.hbs',
                 layoutdir: './src/view/layouts',
                 partials: './src/view/partials/**/*.hbs'
@@ -85,11 +85,11 @@ module.exports = function (grunt) {
                 }]
             },
             /** blog entries */
-            blog:{
-                options:{
-                    layout:'post.hbs'
+            blog: {
+                options: {
+                    layout: 'post.hbs'
                 },
-                files:[{
+                files: [{
                     cwd: './src/view/posts/',
                     dest: 'dist/posts',
                     expand: true,
@@ -97,6 +97,18 @@ module.exports = function (grunt) {
                 }]
             }
         },
+
+        m2j: {
+            release: {
+                options: {
+                    minify: true,
+                    width: 60
+                },
+                files: {
+                    'dist/posts.json': ['src/view/posts/**/*.md']
+                }
+            }
+        },        
         
         /** local running server used for development */
         connect: {
@@ -117,7 +129,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-markdown-to-json');
 
-    grunt.registerTask("build", ["assemble"]);
-    grunt.registerTask("rebuild", ["copy","uglify","sass","cssmin","assemble"]);
+    grunt.registerTask("build", ["m2j","assemble"]);
+    grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "assemble"]);
 };
