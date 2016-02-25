@@ -1,7 +1,13 @@
 <article class="post">
     {{>postHeader}}
     
-    <a href="#" class="image featured"><img src="images/pic01.jpg" alt=""></a>
+    
+    {{#if image}}
+        <a href="#" class="image featured">
+                <img src="{{config.path.baseurl}}{{config.path.featureImg}}/{{image}}" alt="{{basename}}">
+        </a
+    {{/if}}
+    
     <p>{{summary}}</p>
     <footer>
         <ul class="actions">

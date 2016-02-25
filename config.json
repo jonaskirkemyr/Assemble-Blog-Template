@@ -6,7 +6,8 @@
     },
     "path": {
         "baseurl": "http://localhost:8080",
-        "asset": "/assets"
+        "asset": "/assets",
+        "featureImg":"/images/headers"
     },
     "author": {
         "kirkemyr": {
