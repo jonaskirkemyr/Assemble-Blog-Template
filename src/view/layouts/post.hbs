@@ -12,4 +12,15 @@ layout: base.hbs
         {{/markdown}}
     </section>
 
+    <hr>{{! line break }}
+    <footer>
+        <section>
+            <h3>Tags</h3>
+            <ul class="stats">
+            {{#each tags}}
+                <li><a href="#">{{this.tag}}</a></li>
+            {{/each}}
+            </ul>
+        </section>
+    </footer>
 </article>
