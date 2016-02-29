@@ -131,7 +131,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-markdown-to-json');
+    grunt.loadNpmTasks('grunt-newer');
 
-    grunt.registerTask("build", ["m2j", "assemble"]);
+    grunt.registerTask("build", ["newer:m2j", "newer:assemble"]);
     grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "assemble"]);
 };
