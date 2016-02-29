@@ -17,8 +17,9 @@ layout: base.hbs
         <section>
             <h3>Tags</h3>
             <ul class="stats">
-            {{#each tags}}
-                <li><a href="#">{{this.tag}}</a></li>
+            
+            {{#each page.tags}}
+                <li><a href="#">{{this}}</a></li>
             {{/each}}
             </ul>
         </section>
