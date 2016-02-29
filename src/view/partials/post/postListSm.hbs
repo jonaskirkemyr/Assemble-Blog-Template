@@ -2,7 +2,7 @@
     <article>
         <header>
             <h3><a href="#">{{title}}</a></h3>
-            <time class="published" datetime="{{created}}">{{created}}</time>
+            <time class="published" datetime="{{created}}">{{formatDate created "%B %d,%Y"}}</time>
         </header>
         <a href="#" class="image"><img src="{{config.path.baseurl}}{{config.path.featureImg}}/{{image}}" alt="{{basename}}"/></a>
     </article>
