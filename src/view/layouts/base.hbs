@@ -35,16 +35,22 @@
                 <section id="intro">{{>intro}}</section>
                 
                 <section>
-                    <div class="mini-posts">
+                    <div class="mini-posts">                    
                         {{>miniPosts}}
                     </div>
                 </section>
                 
-                <section>
-                    <ul class="posts">
-                    {{>postListSm}}
-                    </ul>
-                </section>
+                {{! only print related pages if there are any}}
+                {{#if page.related}}
+                    <section>
+                        <h4>Related pages</h4>
+                        <ul class="posts">
+                            {{#each page.related}}
+                                {{>postListSm this.data}}
+                            {{/each}}
+                        </ul>
+                    </section>
+                {{/if}}
                 
                 <section class="blurb">
                     {{>about}}

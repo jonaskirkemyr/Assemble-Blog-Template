@@ -66,10 +66,11 @@ module.exports = function (grunt) {
         /** generating static files */
         assemble: {
             options: {
-                data: ['config.json','dist/posts.json'],
+                data: ['config.json', 'dist/posts.json'],
                 layout: 'base.hbs',
                 layoutdir: './src/view/layouts',
-                partials: './src/view/partials/**/*.hbs'
+                partials: './src/view/partials/**/*.hbs',
+                plugins: ['assemble-related-pages']
             },
 
             /** base files**/
@@ -131,6 +132,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-markdown-to-json');
 
-    grunt.registerTask("build", ["m2j","assemble"]);
+    grunt.registerTask("build", ["m2j", "assemble"]);
     grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "assemble"]);
 };

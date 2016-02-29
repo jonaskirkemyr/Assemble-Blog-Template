@@ -1,9 +1,9 @@
 <li>
     <article>
         <header>
-            <h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3>
-            <time class="published" datetime="2015-10-20">October 20, 2015</time>
+            <h3><a href="#">{{title}}</a></h3>
+            <time class="published" datetime="{{created}}">{{created}}</time>
         </header>
-        <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+        <a href="#" class="image"><img src="{{config.path.baseurl}}{{config.path.featureImg}}/{{image}}" alt="{{basename}}"/></a>
     </article>
 </li>
