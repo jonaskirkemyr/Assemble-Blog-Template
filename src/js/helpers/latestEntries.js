@@ -27,17 +27,11 @@ module.exports.register = function (Handlebars, options) {
         if (!limit) {
             limit = 10;
         }
-        
-        console.log("OPT",options.fn);
-        console.log("limit",limit);
-        console.log("size",sortedItems.length);
-
         // Pull out the most recent
         for (var i = 0; i < sortedItems.length && count++ < limit; i++) {
             if ("exclude" in sortedItems[i] && sortedItems[i].exclude === true) {
                 continue;
             }
-            console.log("I",i,sortedItems[i]);
             rv += options.fn(sortedItems[i]);
             count++;
         }
