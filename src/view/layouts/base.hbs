@@ -37,7 +37,7 @@
                 <section>
                     <div class="mini-posts"> 
                         {{#getLatestEntries posts "created" 5}}
-                            {{>postListSm}}
+                            {{>postListSm config=../config }}
                         {{/getLatestEntries}}                  
                     </div>
                 </section>

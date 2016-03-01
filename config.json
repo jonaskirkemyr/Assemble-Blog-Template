@@ -7,12 +7,14 @@
     "path": {
         "baseurl": "http://localhost:8080",
         "asset": "/assets",
-        "featureImg":"/images/headers"
+        "featureImg":"/assets/images/headers",
+        "img": "/assets/images"
     },
     "author": {
         "kirkemyr": {
             "name": "Jonas Kirkemyr",
-            "email": "jonas@kirkemyr.no"
+            "email": "jonas@kirkemyr.no",
+            "img": "http://localhost:8080/assets/images/avatar.jpg"
         }
     },
     "debug": false

@@ -1,10 +1,10 @@
 <article class="post">
+
     {{>postHeader}}
-    
     {{#if image}}
         <a href="#" class="image featured">
-            <img src="{{config.path.baseurl}}{{config.path.featureImg}}/{{image}}" alt="{{basename}}"/>
-        </a
+            <img src="{{../config.path.baseurl}}{{../config.path.featureImg}}/{{image}}" alt="{{basename}}"/>
+        </a>
     {{/if}}
     
     <p>{{summary}}</p>
