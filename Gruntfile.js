@@ -70,7 +70,8 @@ module.exports = function (grunt) {
                 layout: 'base.hbs',
                 layoutdir: './src/view/layouts',
                 partials: './src/view/partials/**/*.hbs',
-                plugins: ['assemble-related-pages']
+                plugins: ['assemble-related-pages'],
+                helpers: ['./src/js/helpers/*.js']
             },
 
             /** base files**/
@@ -133,6 +134,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-markdown-to-json');
     grunt.loadNpmTasks('grunt-newer');
 
-    grunt.registerTask("build", ["newer:m2j", "newer:assemble"]);
+    grunt.registerTask("build", ["newer:m2j", "assemble"]);
     grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "assemble"]);
 };
