@@ -14,7 +14,7 @@
     </div>
 
     <div class="meta">
-        <time class="published" datetime="{{created}}">{{formatDate created "%B %d,%Y"}}</time>
+        <time class="published" datetime="{{created}}">{{dateFormat created "LL"}}</time>
         <a href="mailto:{{author.email}}" class="author">
             <span class="name">{{author.name}}</span> {{#if author.img}}
             <img src="{{author.img}}" alt=="{{author.name}}" /> {{/if}}

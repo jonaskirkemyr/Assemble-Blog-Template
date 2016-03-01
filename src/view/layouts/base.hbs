@@ -35,8 +35,10 @@
                 <section id="intro">{{>intro}}</section>
                 
                 <section>
-                    <div class="mini-posts">                    
-                        {{>miniPosts}}
+                    <div class="mini-posts"> 
+                        {{#getLatestEntries posts "created" 5}}
+                            {{>postListSm}}
+                        {{/getLatestEntries}}                  
                     </div>
                 </section>
                 
@@ -46,7 +48,7 @@
                         <h4>Related pages</h4>
                         <ul class="posts">
                             {{#each page.related}}
-                                {{>postListSm this.data}}
+                                {{>postListXs this.data}}
                             {{/each}}
                         </ul>
                     </section>
