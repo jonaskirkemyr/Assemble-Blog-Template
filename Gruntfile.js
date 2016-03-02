@@ -70,7 +70,6 @@ module.exports = function (grunt) {
                 layout: 'base.hbs',
                 layoutdir: './src/view/layouts',
                 partials: './src/view/partials/**/*.hbs',
-                plugins: ['assemble-related-pages'],
                 helpers: ['./src/js/helpers/*.js']
             },
 
@@ -90,7 +89,7 @@ module.exports = function (grunt) {
             blog: {
                 options: {
                     layout: 'post.hbs',
-                    plugins: ['grunt-assemble-permalinks'],
+                    plugins: ['grunt-assemble-permalinks','assemble-related-pages'],
                     permalinks: {
                         structure: ':category/:basename:ext'
                     }
