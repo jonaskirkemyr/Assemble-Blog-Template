@@ -1,5 +1,5 @@
 <header>
-    <h3><a href="#">{{title}}</a></h3>
+    <h3><a href="{{link category basename}}">{{title}}</a></h3>
     <time class="published" datetime="{{created}}">{{dateFormat created "LL"}}</time>
 </header>
-<a href="#" class="image"><img src="{{config.path.baseurl}}{{config.path.featureImg}}/{{image}}" alt="{{basename}}" /></a>
+<a href="{{link category basename}}" class="image"><img src="{{headerImg image}}" alt="{{basename}}" /></a>

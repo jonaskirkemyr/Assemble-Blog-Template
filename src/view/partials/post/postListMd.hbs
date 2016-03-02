@@ -2,8 +2,8 @@
 
     {{>postHeader}}
     {{#if image}}
-        <a href="#" class="image featured">
-            <img src="{{../config.path.baseurl}}{{../config.path.featureImg}}/{{image}}" alt="{{basename}}"/>
+        <a href="{{link category basename}}" class="image featured">
+            <img src="{{headerImg image}}" alt="{{basename}}"/>
         </a>
     {{/if}}
     
@@ -13,9 +13,7 @@
             <li><a href="#" class="button big">Continue Reading</a></li>
         </ul>
         <ul class="stats">
-            {{#if category}}
             <li><a href="#">{{category}}</a></li>
-            {{/if}}
             {{! REMOVED. NOT USED YET
             <li><a href="#" class="icon fa-heart">28</a></li>
             <li><a href="#" class="icon fa-comment">128</a></li>

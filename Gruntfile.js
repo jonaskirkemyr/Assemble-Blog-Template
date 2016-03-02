@@ -89,12 +89,17 @@ module.exports = function (grunt) {
             /** blog entries */
             blog: {
                 options: {
-                    layout: 'post.hbs'
+                    layout: 'post.hbs',
+                    plugins: ['grunt-assemble-permalinks'],
+                    permalinks: {
+                        structure: ':category/:basename:ext'
+                    }
                 },
                 files: [{
                     cwd: './src/view/posts/',
                     dest: 'dist/posts',
                     expand: true,
+                    flatten: true,
                     src: '**/*.md'
                 }]
             }
