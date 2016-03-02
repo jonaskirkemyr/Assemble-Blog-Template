@@ -33,7 +33,6 @@ module.exports.register = function (Handlebars, options) {
                 continue;
             }
             rv += options.fn(sortedItems[i]);
-            count++;
         }
 
         return rv;
