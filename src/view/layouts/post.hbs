@@ -15,6 +15,7 @@ layout: base.hbs
     <hr>{{! line break }}
     <footer>
         <section>
+        {{#if tags}}
             <h3>Tags</h3>
             <ul class="stats">
             
@@ -22,6 +23,7 @@ layout: base.hbs
                 <li><a href="#">{{this}}</a></li>
             {{/each}}
             </ul>
+        {{/if}}
         </section>
     </footer>
 </article>
