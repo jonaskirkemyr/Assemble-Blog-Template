@@ -13,7 +13,7 @@ module.exports = function (grunt) {
             },
             assets: {
                 files: {
-                    'dist/assets/js/main.min.js': ['src/js/**/*.js']
+                    'dist/assets/js/main.min.js': ['src/js/**/*.js','!src/js/helpers/*.js']
                 }
             }
         },
