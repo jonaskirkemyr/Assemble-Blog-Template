@@ -89,7 +89,7 @@ module.exports = function (grunt) {
             blog: {
                 options: {
                     layout: 'post.hbs',
-                    plugins: ['grunt-assemble-permalinks','assemble-related-pages'],
+                    plugins: ['grunt-assemble-permalinks', 'assemble-related-pages'],
                     permalinks: {
                         structure: ':category/:basename:ext'
                     }
@@ -139,5 +139,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask("build", ["newer:m2j", "assemble"]);
-    grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "assemble"]);
+    grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "m2j", "assemble"]);
 };
