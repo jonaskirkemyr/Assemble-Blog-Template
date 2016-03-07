@@ -17,5 +17,6 @@
             "img": "http://localhost:8080/assets/images/avatar.jpg"
         }
     },
-    "debug": false
+    "debug": false,
+    "disqus":"disqusIdentifier"
 }

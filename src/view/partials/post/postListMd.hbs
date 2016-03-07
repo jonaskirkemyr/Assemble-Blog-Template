@@ -14,10 +14,8 @@
         </ul>
         <ul class="stats">
             <li><a href="#">{{category}}</a></li>
-            {{! REMOVED. NOT USED YET
-            <li><a href="#" class="icon fa-heart">28</a></li>
-            <li><a href="#" class="icon fa-comment">128</a></li>
-            }}
+            {{!<li><a href="#" class="icon fa-heart">0</a></li>}}
+            <li><a href="{{link category basename}}#disqus_thread" data-disqus-identifier="{{basename}}" class="icon fa-comment disqus-comment-count">0</a></li>
         </ul>
     </footer>
 </article>
