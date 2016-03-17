@@ -1,4 +1,16 @@
-{{! List posts}}
-{{#withSort posts "created" dir="desc"}}
-{{>postListMd config=../config}}
-{{/withSort}}
+<div id="content"></div>
+
+
+{{! load files needed for SPA application}}
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/signals.min.js"></script>
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/hasher.min.js"></script>
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/moment.min.js"></script>
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/crossroads.min.js"></script>
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/handlebars.min.js"></script>
+
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/helpers.min.js"></script>
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/templates.min.js"></script>
+
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/spa.min.js"></script>
+
+<script src="{{config.path.baseurl}}{{config.path.asset}}/js/lib.min.js"></script>
