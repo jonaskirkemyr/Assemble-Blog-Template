@@ -13,7 +13,10 @@ module.exports = function (grunt) {
             },
             assets: {
                 files: {
-                    'dist/assets/js/main.min.js': ['src/js/**/*.js','!src/js/helpers/*.js']
+                    'dist/assets/js/main.min.js': ['src/js/**/*.js', '!src/js/helpers/*.js'],
+                    'dist/assets/js/lib.min.js': ['build/js/lib.js'],
+                    'dist/assets/js/templates.min.js': ['build/js/templates.js'],
+                    'dist/assets/js/helpers.min.js': ['src/js/helpers/helpers.js']
                 }
             }
         },
@@ -26,6 +29,14 @@ module.exports = function (grunt) {
                     'dist/assets/js/packages/skel.min.js': ['./bower_components/skel/dist/skel.min.js'],
                     'dist/assets/js/packages/html5shiv.min.js': ['./bower_components/html5shiv/dist/html5shiv.min.js'],
                     'dist/assets/js/packages/respond.min.js': ['./bower_components/respond/dest/respond.min.js'],
+
+                    'dist/assets/js/packages/handlebars.min.js': ['./node_modules/handlebars/dist/handlebars.runtime.min.js'],
+                    'dist/assets/js/packages/crossroads.min.js': ['./node_modules/crossroads/dist/crossroads.min.js'],
+                    'dist/assets/js/packages/signals.min.js': ['./node_modules/crossroads/node_modules/signals/dist/signals.min.js'],
+                    'dist/assets/js/packages/hasher.min.js': ['./bower_components/hasher/dist/js/hasher.min.js'],
+                    'dist/assets/js/packages/spa.min.js': ['./bower_components/spa/dist/spa.min.js'],
+                    
+                    'dist/assets/js/packages/moment.min.js': ['./bower_components/moment/min/moment.min.js']
                 }
             },
             fontawesome: {
@@ -33,6 +44,22 @@ module.exports = function (grunt) {
                 cwd: './bower_components/font-awesome/fonts/',
                 src: ['**'],
                 dest: 'dist/assets/fonts/'
+            }
+        },
+
+        typescript: {
+            modules: {
+                src: ['src/ts/**/*.ts'],
+                dest: 'build/js/lib.js',
+                options: {
+                    module: 'commonjs',
+                    target: 'es5',
+                    sourceMap: true,
+                    declaration: true,
+                    references: [
+                        "typings/main.d.ts"
+                    ]
+                }
             }
         },
 
@@ -70,7 +97,7 @@ module.exports = function (grunt) {
                 layout: 'base.hbs',
                 layoutdir: './src/view/layouts',
                 partials: './src/view/partials/**/*.hbs',
-                helpers: ['./src/js/helpers/*.js']
+                helpers: ['./src/js/helpers/helpers.js']
             },
 
             /** base files**/
@@ -114,7 +141,30 @@ module.exports = function (grunt) {
                     'dist/posts.json': ['src/view/posts/**/*.md']
                 }
             }
-        },        
+        },
+        
+        //compile handlebars templates to js
+        handlebars: {
+            compile: {
+                options: {
+                    namespace: "<%= config.namespace %>",
+                    partialsUseNamespace: true,
+                    partialsPathRegex: /\/partials\//,
+                    partialRegex: /.*\.hbs/,
+
+                    processName: function (fileName) {
+                        return fileName.replace("src/view/templates/", '').replace(".hbs", '');
+                    },
+
+                    processPartialName: function (fileName) {
+                        return fileName.replace("src/view/templates/partials/", '').replace("src/view/partials/post/", "").replace(".hbs", '');
+                    }
+                },
+                files: {
+                    "build/js/templates.js": ["src/view/templates/**/*.hbs", "src/view/partials/post/*.hbs"]
+                }
+            }
+        },  
         
         /** local running server used for development */
         connect: {
@@ -137,7 +187,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-markdown-to-json');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
+    grunt.loadNpmTasks('grunt-typescript');
 
-    grunt.registerTask("build", ["newer:m2j", "assemble"]);
-    grunt.registerTask("rebuild", ["copy", "uglify", "sass", "cssmin", "m2j", "assemble"]);
+    grunt.registerTask("build", ["newer:m2j", "newer:assemble", "newer:handlebars", "newer:typescript", "newer:uglify", "newer:sass", "newer:cssmin"]);
+    grunt.registerTask("rebuild", ["copy", "handlebars", "typescript", "uglify", "sass", "cssmin", "m2j", "assemble"]);
 };

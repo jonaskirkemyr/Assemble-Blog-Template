@@ -18,5 +18,6 @@
         }
     },
     "debug": false,
-    "disqus":"disqusIdentifier"
+    "disqus":"disqusIdentifier",
+    "namespace":"JST"
 }

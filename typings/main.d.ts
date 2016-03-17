@@ -1,0 +1,1 @@
+/// <reference path="..\bower_components\spa\build\spa.d.ts" />
