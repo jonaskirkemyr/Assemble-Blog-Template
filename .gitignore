@@ -4,3 +4,4 @@ bower_components
 dist
 build
 npm-debug.log
+src/js/data.js

@@ -135,20 +135,13 @@ var register = function(Handlebars, isClient) {
 
 // client
 if (typeof window !== "undefined") {
-    var config = {
-        "path": {
-            "baseurl": "http://localhost:8080",
-            "asset": "/assets",
-            "featureImg": "/assets/images/headers",
-            "img": "/assets/images"
-        }
-    };
+    var config = Data.config;
     register(Handlebars, true);
 }
 // server
 else {
     var moment = require("moment");
-    var config = require("../../config.json");
+    var config = require("../../../config.json");
     module.exports.register = register;
     module.exports.helpers = register(null, false);
 }

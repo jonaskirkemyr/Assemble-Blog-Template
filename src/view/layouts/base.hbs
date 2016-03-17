@@ -14,6 +14,15 @@
 		<link rel="stylesheet" href="{{config.path.baseurl}}{{config.path.asset}}/css/theme/main.min.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="{{config.path.baseurl}}{{config.path.asset}}/css/theme/ie9.min.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="{{config.path.baseurl}}{{config.path.asset}}/css/theme/ie8.min.css" /><![endif]-->
+        
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/jquery.min.js"></script>
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/skel.min.js"></script>
+
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/main.min.js"></script>
+        
+        {{!disqus}}
+        <script id="dsq-count-scr" src="//{{config.disqus}}.disqus.com/count.js" async></script>
+        <!--[if lte IE 8]><script src="{{config.path.baseurl}}{{config.path.asset}}/js/respond.min.js"></script><![endif]--> 
 	</head>
 	<body>
         <div id="wrapper">
@@ -63,13 +72,5 @@
                 </section>
             </section>
         </div>
-        
-        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/jquery.min.js"></script>
-        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/skel.min.js"></script>
-        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/main.min.js"></script>
-        
-        {{!disqus}}
-        <script id="dsq-count-scr" src="//{{config.disqus}}.disqus.com/count.js" async></script>
-        <!--[if lte IE 8]><script src="{{config.path.baseurl}}{{config.path.asset}}/js/respond.min.js"></script><![endif]--> 
 	</body>
 </html>

@@ -35,7 +35,7 @@ module.exports = function (grunt) {
                     'dist/assets/js/packages/signals.min.js': ['./node_modules/crossroads/node_modules/signals/dist/signals.min.js'],
                     'dist/assets/js/packages/hasher.min.js': ['./bower_components/hasher/dist/js/hasher.min.js'],
                     'dist/assets/js/packages/spa.min.js': ['./bower_components/spa/dist/spa.min.js'],
-                    
+
                     'dist/assets/js/packages/moment.min.js': ['./bower_components/moment/min/moment.min.js']
                 }
             },
@@ -142,6 +142,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+
+        json: {
+            main: {
+                options: {
+                    namespace: 'Data',
+                    includePath: true,
+                    processName: function (filename) {
+                        return filename.toLowerCase().replace(".json", "");
+                    }
+                },
+                src: ['config.json'],
+                dest: 'src/js/data.js'
+            }
+        },
         
         //compile handlebars templates to js
         handlebars: {
@@ -189,7 +203,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
     grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-json');
 
-    grunt.registerTask("build", ["newer:m2j", "newer:assemble", "newer:handlebars", "newer:typescript", "newer:uglify", "newer:sass", "newer:cssmin"]);
-    grunt.registerTask("rebuild", ["copy", "handlebars", "typescript", "uglify", "sass", "cssmin", "m2j", "assemble"]);
+    grunt.registerTask("build", ["newer:m2j", "newer:assemble", "newer:handlebars", "newer:typescript", "newer:json", "newer:uglify", "newer:sass", "newer:cssmin"]);
+    grunt.registerTask("rebuild", ["copy", "handlebars", "typescript", "json", "uglify", "sass", "cssmin", "m2j", "assemble"]);
 };

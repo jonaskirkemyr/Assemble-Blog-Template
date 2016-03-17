@@ -1,7 +1,7 @@
 //declares the namespace which Handlebars templates is stored
-declare var JST: any;
+declare var Data: any;
 
-Spa.App.namespace = JST; //set the namespace variable to Spa.App
+Spa.App.namespace = window[Data.config.namespace]; //set the namespace variable to Spa.App
 Spa.App.container = "content"; //dom id which should be replaced with dynamic content
 var app = new Spa.App();
 
