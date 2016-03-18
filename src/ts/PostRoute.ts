@@ -17,7 +17,13 @@ module Post {
             super.addRoute("/", function() {
                 parent.setRouteTitle("This is still my post");
                 parent.render("postIndex");
-                PostController.initPage();
+                PostController.initPage(0);
+            });
+
+            super.addRoute("/page/{page}", function(page) {
+                parent.setRouteTitle("This is still my post");
+                parent.render("postIndex");
+                PostController.initPage(page);
             });
         }
     }

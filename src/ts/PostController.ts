@@ -1,4 +1,6 @@
 module Post {
+
+    enum PostSort { Date, Category, Author };
     /**
      * Controller for loading/showing posts
      * 
@@ -15,18 +17,51 @@ module Post {
          */
         static posts: Array<Object>;
 
+        static numbPerPage = 1;
+
+        static sortBy: PostSort = null;
+        
+
         /**
          * Initializes the post page and load posts
          */
-        static initPage() {
-            if (this.posts == null)
+        static initPage(page: number, sortBy: PostSort = PostSort.Date) {
+
+            if (this.posts == null) {
+                console.log("POST IS NULL");
                 this.loadJson(function(response) {
                     PostController.posts = JSON.parse(response);//parse actual json retrieved
-                    PostController.renderPosts();
+                    PostController.renderPosts(page);
 
                 });
-            else
-                this.renderPosts();
+            }
+            else {
+                console.log("POST IS NOT NULL");
+                this.renderPosts(page);
+            }
+
+
+        }
+
+        static sortPosts(sortBy: PostSort = PostSort.Date) {
+            if (this.sortBy != sortBy) {
+                switch (sortBy) {
+                    case PostSort.Date:
+                        this.sortByDate();
+                        this.sortBy = PostSort.Date;
+                        break;
+
+                    case PostSort.Category:
+                        this.sortByCategory();
+                        this.sortBy = PostSort.Category;
+                        break;
+
+                    case PostSort.Author:
+                        this.sortByAuthor();
+                        this.sortBy = PostSort.Author;
+                        break;
+                }
+            }
         }
         
         
@@ -35,13 +70,36 @@ module Post {
          * 
          * @static
          */
-        static renderPosts() {
+        static renderPosts(page: number) {
+            this.sortByDate();
             var html = "";
-            for (var i = 0; i < this.posts.length; ++i) {
+            for (var i = page; i < this.posts.length && i < this.numbPerPage; ++i) {
                 html += Spa.App.namespace['postListMd'](this.posts[i]);
             }
 
             document.getElementById("posts").innerHTML = html;
+            //Pagination.setPage()
+        }
+
+
+        static sortByDate() {
+            this.posts.sort(function(a: Object, b: Object) {
+                var momentA = moment(a["created"], "DD.MM.YYYY");
+                var momentB = moment(b["created"], "DD.MM.YYYY");
+                return momentB.diff(momentA);
+            });
+        }
+
+        static sortByCategory() {
+            this.posts.sort(function(a: Object, b: Object) {
+                return a["category"].localeCompare(b.["category"]);
+            });
+        }
+
+        static sortByAuthor() {
+            this.posts.sort(function(a: Object, b: Object) {
+                return a["author"].localeCompare(b.["author"]);
+            });
         }
 
 
