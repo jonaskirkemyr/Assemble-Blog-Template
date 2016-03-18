@@ -5,3 +5,6 @@ dist
 build
 npm-debug.log
 src/js/data.js
+typings/browser
+typings/main
+typings/browser.d.ts
