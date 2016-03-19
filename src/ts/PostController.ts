@@ -1,6 +1,6 @@
 module Post {
 
-    enum PostSort { Date, Category, Author };
+    export enum PostSort { Date, Category, Author };
     /**
      * Controller for loading/showing posts
      * 
@@ -92,13 +92,13 @@ module Post {
 
         static sortByCategory() {
             this.posts.sort(function(a: Object, b: Object) {
-                return a["category"].localeCompare(b.["category"]);
+                return a["category"].localeCompare(b["category"]); 
             });
         }
 
         static sortByAuthor() {
             this.posts.sort(function(a: Object, b: Object) {
-                return a["author"].localeCompare(b.["author"]);
+                return a["author"].localeCompare(b["author"]);
             });
         }
 
