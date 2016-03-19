@@ -1,6 +1,6 @@
 module Post {
 
-    export enum PostSort { Date, Category, Author };
+    export enum PostSelect { Date, Category, Author, Tag };
     /**
      * Controller for loading/showing posts
      * 
@@ -19,46 +19,102 @@ module Post {
 
         static numbPerPage = 1;
 
-        static sortBy: PostSort = null;
+        static sortBy: PostSelect = null;
+        static selectedPosts: PostSelect = null;
+        static selectedParam: string = null;//param used when selecting posts (author name, tag name, category name)
         
 
         /**
          * Initializes the post page and load posts
          */
-        static initPage(page: number, sortBy: PostSort = PostSort.Date) {
-
-            if (this.posts == null) {
-                console.log("POST IS NULL");
-                this.loadJson(function(response) {
-                    PostController.posts = JSON.parse(response);//parse actual json retrieved
-                    PostController.renderPosts(page);
-
-                });
-            }
-            else {
-                console.log("POST IS NOT NULL");
-                this.renderPosts(page);
-            }
-
-
+        static initPage(page: number, sortBy: PostSelect = PostSelect.Date) {
+            this.sortPosts(sortBy);
+            this.renderPosts(page);
         }
 
-        static sortPosts(sortBy: PostSort = PostSort.Date) {
+        static setParam(param: string) {
+
+            if (this.selectedParam == param)
+                return;
+
+            switch (this.selectedPosts) {
+                case PostSelect.Tag:
+                    this.selectTag(param);
+                    break;
+
+                case PostSelect.Category:
+                    this.selectPosts("category", param);
+                    break;
+
+                case PostSelect.Author:
+                    this.selectPosts("author", param);
+                    break;
+
+                default:
+                    this.selectedPosts = null;
+                    param = null;
+                    break;
+            }
+
+            this.selectedParam = param;
+        }
+
+
+        static loadPosts(postSelector: PostSelect, func: Function) {
+            if (this.posts == null || postSelector != this.selectedPosts) {
+                this.loadJson(function(response) {
+                    console.log("loading posts");
+                    PostController.posts = JSON.parse(response);
+                    PostController.selectedPosts = postSelector;
+                    func();
+                });
+            }
+            else
+                func();
+        }
+
+        static selectTag(tag: string) {
+            for (var i = 0; i < this.posts.length; ++i) {
+                var found = false;//state whether the searching tag is found or not
+                for (var j = 0; j < this.posts[i]["tags"].length; ++j) {//loop over all tags for the current post
+                    if (this.posts[i]["tags"][j] == tag) {//tag exists in post
+                        found = true;//change the state proving that the tag was found for the state
+                        break;//no need to keep searching once found
+                    }
+                }
+
+                if (!found) {
+                    this.posts.splice(i);
+                }
+            }
+        }
+
+        private static selectPosts(selectBy: string, search: string) {
+            for (var i = 0; i < this.posts.length; ++i) {
+                if (this.posts[i][selectBy] != search) {
+                    this.posts.splice(i, 1);
+                }
+            }
+        }
+
+        static sortPosts(sortBy: PostSelect = PostSelect.Date) {
             if (this.sortBy != sortBy) {
                 switch (sortBy) {
-                    case PostSort.Date:
+
+                    default:
+                    case PostSelect.Date:
                         this.sortByDate();
-                        this.sortBy = PostSort.Date;
+                        this.sortBy = PostSelect.Date;
                         break;
 
-                    case PostSort.Category:
+                    case PostSelect.Category:
                         this.sortByCategory();
-                        this.sortBy = PostSort.Category;
+                        this.sortBy = PostSelect.Category;
                         break;
 
-                    case PostSort.Author:
+                    case PostSelect.Author:
                         this.sortByAuthor();
-                        this.sortBy = PostSort.Author;
+                        this.sortBy = PostSelect.Author;
                         break;
                 }
             }
@@ -71,14 +127,13 @@ module Post {
          * @static
          */
         static renderPosts(page: number) {
-            this.sortByDate();
             var html = "";
-            for (var i = page; i < this.posts.length && i < this.numbPerPage; ++i) {
+            for (var i = page, numb = 0; i < this.posts.length && numb < this.numbPerPage; ++i, ++numb) {
                 html += Spa.App.namespace['postListMd'](this.posts[i]);
             }
 
             document.getElementById("posts").innerHTML = html;
-            //Pagination.setPage()
+            //TODO: pagination setup
         }
 
 
@@ -92,7 +147,7 @@ module Post {
 
         static sortByCategory() {
             this.posts.sort(function(a: Object, b: Object) {
-                return a["category"].localeCompare(b["category"]); 
+                return a["category"].localeCompare(b["category"]);
             });
         }
 

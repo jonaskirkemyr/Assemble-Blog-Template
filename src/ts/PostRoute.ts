@@ -14,16 +14,46 @@ module Post {
         initRoutes() {
             var parent = this;
 
-            super.addRoute("/", function() {
+            super.addRoute("/:{sort}:", function(sort: Post.PostSelect) {
+                console.log(sort);
                 parent.setRouteTitle("This is still my post");
                 parent.render("postIndex");
-                PostController.initPage(0);
+
+                PostController.loadPosts(null, function() {
+                    PostController.initPage(0, sort);
+                });
+
             });
 
-            super.addRoute("/page/{page}", function(page) {
+            super.addRoute("/tag/{name}/:{page}:", function(name: string, page: number = 0) {
+                console.log("TAG", name, page);
+                parent.render("postIndex");
+                PostController.loadPosts(PostSelect.Tag, function() {
+                    PostController.setParam(name);
+                    PostController.initPage(page);
+                });
+            });
+
+            super.addRoute("/category/{name}/:{page}:", function(name: string, page: number = 0) {
+                console.log("CATEGORY", name, page);
+                parent.render("postIndex");
+                PostController.loadPosts(PostSelect.Category, function() {
+                    PostController.setParam(name);
+                    PostController.initPage(page);
+                });
+            });
+
+            super.addRoute("/page/{page}", function(page: number) {
+                console.log("PAGE", page);
+                console.log("page triggered");
                 parent.setRouteTitle("This is still my post");
                 parent.render("postIndex");
-                PostController.initPage(page);
+
+                PostController.loadPosts(null, function() {
+                    PostController.initPage(page);
+                });
+
+                //PostController.initPage(page > 1 ? page - 1 : 0);//page 0 do not exists for the client (start page is 1)
             });
         }
     }
