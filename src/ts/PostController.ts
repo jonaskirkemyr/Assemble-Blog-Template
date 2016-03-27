@@ -8,7 +8,7 @@ module Post {
      * @class PostController
      */
     export class PostController {
-      
+
         /**
          * Variable holding post data loaded from json file
          * 
@@ -22,14 +22,16 @@ module Post {
         static sortBy: PostSelect = null;
         static selectedPosts: PostSelect = null;
         static selectedParam: string = null;//param used when selecting posts (author name, tag name, category name)
-        
+
 
         /**
          * Initializes the post page and load posts
          */
         static initPage(page: number, sortBy: PostSelect = PostSelect.Date) {
-            this.sortPosts(sortBy);
-            this.renderPosts(page);
+            if (this.posts.length >= page && page > 0) {
+                this.sortPosts(sortBy);
+                this.renderPosts(page - 1);
+            }
         }
 
         static setParam(param: string) {
@@ -66,6 +68,7 @@ module Post {
                     console.log("loading posts");
                     PostController.posts = JSON.parse(response);
                     PostController.selectedPosts = postSelector;
+                    PostController.sortBy = null;
                     func();
                 });
             }
@@ -119,8 +122,8 @@ module Post {
                 }
             }
         }
-        
-        
+
+
         /**
          * Renders posts loaded
          * 

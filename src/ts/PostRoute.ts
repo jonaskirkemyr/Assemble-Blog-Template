@@ -20,12 +20,12 @@ module Post {
                 parent.render("postIndex");
 
                 PostController.loadPosts(null, function() {
-                    PostController.initPage(0, sort);
+                    PostController.initPage(1, sort);
                 });
 
             });
 
-            super.addRoute("/tag/{name}/:{page}:", function(name: string, page: number = 0) {
+            super.addRoute("/tag/{name}/:{page}:", function(name: string, page: number = 1) {
                 console.log("TAG", name, page);
                 parent.render("postIndex");
                 PostController.loadPosts(PostSelect.Tag, function() {
@@ -34,7 +34,7 @@ module Post {
                 });
             });
 
-            super.addRoute("/category/{name}/:{page}:", function(name: string, page: number = 0) {
+            super.addRoute("/category/{name}/:{page}:", function(name: string, page: number = 1) {
                 console.log("CATEGORY", name, page);
                 parent.render("postIndex");
                 PostController.loadPosts(PostSelect.Category, function() {
