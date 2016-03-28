@@ -17,7 +17,7 @@ module Post {
          */
         static posts: Array<Object>;
 
-        static numbPerPage = 1;
+        static numbPerPage = 2;
 
         static sortBy: PostSelect = null;
         static selectedPosts: PostSelect = null;
@@ -28,10 +28,15 @@ module Post {
          * Initializes the post page and load posts
          */
         static initPage(page: number, sortBy: PostSelect = PostSelect.Date) {
-            if (this.posts.length >= page && page > 0) {
+            if ((this.posts.length / this.numbPerPage) >= page && page > 0) {
+                Pagination.show();
                 this.sortPosts(sortBy);
                 this.renderPosts(page - 1);
+                Pagination.setPage(page, this.posts.length / this.numbPerPage);
+                return true;
             }
+            Pagination.hide();//hide the pagination div on error
+            return false;
         }
 
         static setParam(param: string) {
@@ -131,12 +136,11 @@ module Post {
          */
         static renderPosts(page: number) {
             var html = "";
-            for (var i = page, numb = 0; i < this.posts.length && numb < this.numbPerPage; ++i, ++numb) {
+            for (var i = this.numbPerPage * page, numb = 0; i < this.posts.length && numb < this.numbPerPage; ++i, ++numb) {
                 html += Spa.App.namespace['postListMd'](this.posts[i]);
             }
 
             document.getElementById("posts").innerHTML = html;
-            //TODO: pagination setup
         }
 
 
