@@ -137,6 +137,15 @@ module Post {
         static renderPosts(page: number) {
             var html = "";
             for (var i = this.numbPerPage * page, numb = 0; i < this.posts.length && numb < this.numbPerPage; ++i, ++numb) {
+
+                //check whether author is already parsed
+                if (this.posts[i]["author"] != undefined && (typeof this.posts[i]["author"]) != "object") {
+                    var author = this.posts[i]["author"];
+                    var author_split = author.substring(4, author.length - 3).split(".");//split into array
+                    var window_author = window["Data"]["config"]["author"][author_split[author_split.length - 1]];//access variable by parsed string
+
+                    this.posts[i]["author"] = window_author;//pass the parsed var numb to posts json
+                }
                 html += Spa.App.namespace['postListMd'](this.posts[i]);
             }
 
