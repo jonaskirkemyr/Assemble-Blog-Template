@@ -7,53 +7,59 @@ module Post {
             super(route);
             this.setRouteTitle("My Posts");
         }
-        
+
         /**
          * Initalizes routes for post
          */
         initRoutes() {
             var parent = this;
 
-            super.addRoute("/:{sort}:", function(sort: Post.PostSelect) {
-                console.log(sort);
+            super.addRoute("/", function() {
                 parent.setRouteTitle("This is still my post");
-                parent.render("postIndex");
-
-                PostController.loadPosts(null, function() {
-                    PostController.initPage(1, sort);
-                });
-
+                parent.renderPage(null, 1, "#/page");
             });
 
             super.addRoute("/tag/{name}/:{page}:", function(name: string, page: number = 1) {
-                console.log("TAG", name, page);
-                parent.render("postIndex");
-                PostController.loadPosts(PostSelect.Tag, function() {
-                    PostController.setParam(name);
-                    PostController.initPage(page);
-                });
+                parent.setRouteTitle("Tag page");
+                parent.renderPage(PostSelect.Tag, page, "#/tag/" + name, name);
             });
 
             super.addRoute("/category/{name}/:{page}:", function(name: string, page: number = 1) {
-                console.log("CATEGORY", name, page);
-                parent.render("postIndex");
-                PostController.loadPosts(PostSelect.Category, function() {
-                    PostController.setParam(name);
-                    PostController.initPage(page);
-                });
+                parent.setRouteTitle("Categories");
+                parent.renderPage(PostSelect.Category, page, "#/category/" + name, name);
             });
 
             super.addRoute("/page/{page}", function(page: number) {
-                console.log("PAGE", page);
-                console.log("page triggered");
+
                 parent.setRouteTitle("This is still my post");
-                parent.render("postIndex");
+                parent.renderPage(null, page, "#/page");
+            });
+        }
 
-                PostController.loadPosts(null, function() {
-                    PostController.initPage(page);
-                });
 
-                //PostController.initPage(page > 1 ? page - 1 : 0);//page 0 do not exists for the client (start page is 1)
+        /**
+         * Common function for rendering post page. Each route
+         * calls this function to decide which posts should be
+         * loaded, current page which should be rendered, and
+         * the href to both next/prev buttons
+         * 
+         * @private
+         * @param {PostSelect} selectPosts which posts should be selected
+         * @param {number} [page=1] the page number to render
+         * @param {string} href the parent link to be used with Pagination class
+         * @param {string} [param=null] if a param should be set for the loaded posts
+         */
+        private renderPage(selectPosts: PostSelect, page: number = 1, href: string, param: string = null) {
+            this.render("postIndex");
+
+            PostController.loadPosts(selectPosts, function() {
+                Pagination.setHrefPage(href);
+
+                if (param != null)
+                    PostController.setParam(param);
+
+                if (!PostController.initPage(page))
+                    Spa.App.renderErrorPage();
             });
         }
     }
