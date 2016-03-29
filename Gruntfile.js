@@ -1,4 +1,4 @@
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     "use strict";
 
     grunt.initConfig({
@@ -36,7 +36,10 @@ module.exports = function (grunt) {
                     'dist/assets/js/packages/hasher.min.js': ['./bower_components/hasher/dist/js/hasher.min.js'],
                     'dist/assets/js/packages/spa.min.js': ['./bower_components/spa/dist/spa.min.js'],
 
-                    'dist/assets/js/packages/moment.min.js': ['./bower_components/moment/min/moment.min.js']
+                    'dist/assets/js/packages/moment.min.js': ['./bower_components/moment/min/moment.min.js'],
+
+                    'dist/assets/js/packages/typeahead.jquery.min.js': ['./bower_components/typeahead.js/dist/typeahead.jquery.min.js'],
+                    'dist/assets/js/packages/bloodhound.min.js': ['./bower_components/typeahead.js/dist/bloodhound.min.js']
                 }
             },
             fontawesome: {
@@ -89,7 +92,7 @@ module.exports = function (grunt) {
                     }]
             }
         },
-        
+
         /** generating static files */
         assemble: {
             options: {
@@ -148,7 +151,7 @@ module.exports = function (grunt) {
                 options: {
                     namespace: 'Data',
                     includePath: true,
-                    processName: function (filename) {
+                    processName: function(filename) {
                         return filename.toLowerCase().replace(".json", "");
                     }
                 },
@@ -156,7 +159,7 @@ module.exports = function (grunt) {
                 dest: 'src/js/data.js'
             }
         },
-        
+
         //compile handlebars templates to js
         handlebars: {
             compile: {
@@ -166,11 +169,11 @@ module.exports = function (grunt) {
                     partialsPathRegex: /\/partials\//,
                     partialRegex: /.*\.hbs/,
 
-                    processName: function (fileName) {
+                    processName: function(fileName) {
                         return fileName.replace("src/view/templates/", '').replace(".hbs", '');
                     },
 
-                    processPartialName: function (fileName) {
+                    processPartialName: function(fileName) {
                         return fileName.replace("src/view/templates/partials/", '').replace("src/view/partials/post/", "").replace(".hbs", '');
                     }
                 },
@@ -178,8 +181,8 @@ module.exports = function (grunt) {
                     "build/js/templates.js": ["src/view/templates/**/*.hbs", "src/view/partials/post/*.hbs"]
                 }
             }
-        },  
-        
+        },
+
         /** local running server used for development */
         connect: {
             server: {
@@ -191,7 +194,7 @@ module.exports = function (grunt) {
             }
         }
     });
-    
+
     /** load developments task needed for the task process */
     grunt.loadNpmTasks('grunt-assemble');
     grunt.loadNpmTasks('grunt-contrib-connect');
