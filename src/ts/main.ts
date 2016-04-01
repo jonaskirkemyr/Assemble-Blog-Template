@@ -10,4 +10,9 @@ new Post.PostRoute("").initRoutes();
 
 window.onload = function() {
     app.init();//start application, and listening for hash change
+    
+    Post.Typeahead.init();
+
+
+   
 }
