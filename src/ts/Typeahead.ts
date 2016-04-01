@@ -83,7 +83,7 @@ module Post {
                     }
 
                     if (substringRegex.test(match)) {//when a match is found
-                        matches.push(str["title"]);
+                        matches.push(str);
                     }
                 });
 
@@ -106,7 +106,18 @@ module Post {
                 },
                     {
                         name: 'states',
-                        source: Typeahead.substrMatch(data)
+                        source: Typeahead.substrMatch(data),
+                        templates: {
+                            notFound: [
+                                '<div class="empty-message">',
+                                'No post found',
+                                '</div>'
+                            ].join('\n'),
+                            suggestion: function(data): string {
+                                return Spa.App.namespace["postSuggestion"](data);
+                            }
+
+                        }
                     });
             });
 
