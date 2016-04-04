@@ -1,9 +1,13 @@
-.tt-input, /* UPDATE: newer versions use tt-input instead of tt-query */
+.tt-input,
+
+/* UPDATE: newer versions use tt-input instead of tt-query */
+
 .tt-hint {
-    padding-left:2em !important;
+    padding-left: 2em !important;
 }
 
-.tt-input { /* UPDATE: newer versions use tt-input instead of tt-query */
+.tt-input {
+    /* UPDATE: newer versions use tt-input instead of tt-query */
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 
@@ -11,14 +15,14 @@
     color: #d3d3d3 !important;
 }
 
-.tt-menu { /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
+.tt-menu {
+    /* UPDATE: newer versions use tt-menu instead of tt-dropdown-menu */
     width: 100%;
-    
     padding: 8px 0;
     background-color: #fff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 }
 
 .tt-suggestion {
@@ -26,13 +30,42 @@
     line-height: 24px;
 }
 
-.tt-suggestion.tt-selectable:hover { /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
+.tt-suggestion.tt-selectable:hover,
+.tt-suggestion.tt-selectable.tt-cursor {
+    /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
     color: #fff;
     background-color: #0097cf;
     cursor: pointer;
-
 }
 
-.tt-suggestion p {
-    margin: 0;
+.tt-suggestion {
+    p {
+        margin: 0;
+    }
+    .header {
+        font-size: 1.2em;
+        border-bottom: 1px solid;
+    }
+    .summary {}
+    .category {
+        font-size: 0.8em;
+    }
+}
+
+#search {
+    margin-top: 0.2em !important;
+    &::before{
+        content:"" !important;
+    }
+    .twitter-typeahead {
+        margin-top: 5px;
+        .tt-menu {
+            position: relative !important;
+            /* top: 100%; */
+            top: -19px !important;
+            /* left: 0px; */
+            z-index: 100;
+            /* display: none; */
+        }
+    }
 }

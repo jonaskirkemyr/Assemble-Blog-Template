@@ -105,6 +105,8 @@ module Post {
                     minLength: 1
                 },
                     {
+                        limit: 10,
+                        display: function(data):string{return data["title"];},
                         name: 'states',
                         source: Typeahead.substrMatch(data),
                         templates: {
