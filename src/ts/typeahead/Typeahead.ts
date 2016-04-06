@@ -17,6 +17,10 @@ module Post {
             name: "alaska"
         }
     ];
+    declare var loadJson: Function;
+    declare var Data: any;
+
+    var templates = window[Data.config.namespace];
 
     /**
      * Example 
@@ -25,7 +29,6 @@ module Post {
         static keywords: Object = { "cat": "category", "author": "author", "tag": "tags" };
 
         static substrMatch(data: Array<Object>) {
-            console.log("SUBMATCH", data);
             return function findMatches(q: string, cb: Function) {
                 var matches: Array<any> = [];
                 // regex used to determine if a string contains the substring `q`
@@ -34,14 +37,12 @@ module Post {
                 var keyword = null;
                 var query = null;
 
-
-
                 if (q[0] == ":") {//check whether query starts with a keyword
 
                     substringRegex = new RegExp(q.substr(1), 'i');//create a regex without keyword sign `:`
                     for (var key in Typeahead.keywords) {//loop through every keyword registered..
                         if (substringRegex.test(key))//.. to check whether a match is found
-                            matches.push({keyword:key,title:":"+key});
+                            matches.push({ keyword: Typeahead.keywords[key], title: ":" + key });//add data to render on match
                     }
 
                     var splitQuery: Array<string> = q.split(" ");//split query on space, which should be the search query for the input keyword
@@ -93,10 +94,7 @@ module Post {
         }
 
         static init() {
-            console.log($("form.search input"));
-            console.log($(".search input"));
-
-            PostController.loadJson(function(response) {
+            loadJson('posts.json', function(response) {
                 var data = JSON.parse(response);
 
                 $('.search input').typeahead<Object>({
@@ -106,18 +104,18 @@ module Post {
                 },
                     {
                         limit: 10,
-                        display: function(data):string{return data["title"];},
+                        display: function(data): string { return data["title"]; },
                         name: 'states',
                         source: Typeahead.substrMatch(data),
                         templates: {
                             notFound: [
                                 '<div class="empty-message">',
-                                'No post found',
+                                'No post found.<br>Start typing <code>:</code> for a list of keywords',
                                 '</div>'
                             ].join('\n'),
                             suggestion: function(data): string {
-                                console.log("DATA",data);
-                                return Spa.App.namespace["postSuggestion"](data);
+                                console.log("DATA", data);
+                                return templates["postSuggestion"](data);
                             }
 
                         }
