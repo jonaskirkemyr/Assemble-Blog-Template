@@ -1,33 +1,29 @@
+///<reference path="../js.d.ts"/>
 module Post {
-    /*  export var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-          'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-          'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-          'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-          'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-          'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-          'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-          'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-          'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-      ];*/
-    export var states: any = [
-        {
-            name: "alabama"
-        },
-        {
-            name: "alaska"
-        }
-    ];
-    declare var loadJson: Function;
-    declare var Data: any;
-
     var templates = window[Data.config.namespace];
 
+
     /**
-     * Example 
+     * Class for initializing typeahead to 
+     * input dom objects on format:
+     * <form class="search">
+     * <input..>
+     * 
+     * @export
+     * @class Typeahead
      */
     export class Typeahead {
         static keywords: Object = { "cat": "category", "author": "author", "tag": "tags" };
 
+
+        /**
+         * Function for looking for matches for
+         * the loaded posts. Matched results are
+         * returned to the callback function
+         * 
+         * @static
+         * @param {Array<Object>} data the loaded posts
+         */
         static substrMatch(data: Array<Object>) {
             return function findMatches(q: string, cb: Function) {
                 var matches: Array<any> = [];
@@ -92,19 +88,26 @@ module Post {
             };
 
         }
-
+        
+        /**
+         * Initializes typeahead and load posts
+         * 
+         * @static
+         */
         static init() {
             loadJson('posts.json', function(response) {
                 var data = JSON.parse(response);
 
-                $('.search input').typeahead<Object>({
+                var typeaheads = $('.search input');
+
+                typeaheads.typeahead<Object>({
                     hint: true,
                     highlight: true,
                     minLength: 1
                 },
                     {
                         limit: 10,
-                        display: function(data): string { return data["title"]; },
+                        display: function(data: iSuggestion): string { return data.title; },
                         name: 'states',
                         source: Typeahead.substrMatch(data),
                         templates: {
@@ -113,13 +116,23 @@ module Post {
                                 'No post found.<br>Start typing <code>:</code> for a list of keywords',
                                 '</div>'
                             ].join('\n'),
-                            suggestion: function(data): string {
+                            suggestion: function(data: iSuggestion): string {
                                 console.log("DATA", data);
                                 return templates["postSuggestion"](data);
                             }
 
                         }
                     });
+
+                /**
+                 * Function to run when an item is selected from the typeahead dropdown
+                 * Will redirect to user to the selected post
+                 */
+                typeaheads.on('typeahead:select', function(ev: EventTarget, suggestion: iSuggestion) {
+                    if (suggestion.keyword == undefined)
+                        window.location.href = JsHelpers.link(suggestion.category, suggestion.basename);
+
+                });
             });
 
         }
