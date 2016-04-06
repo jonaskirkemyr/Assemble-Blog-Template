@@ -33,12 +33,15 @@
 .tt-suggestion.tt-selectable:hover,
 .tt-suggestion.tt-selectable.tt-cursor {
     /* UPDATE: newer versions use .tt-suggestion.tt-cursor */
-    color: #fff;
+    color: #fff !important;
     background-color: #0097cf;
     cursor: pointer;
 }
 
 .tt-suggestion {
+    a {
+        color: inherit !important;//color of a won't be affected by <body a> style
+    }
     p {
         margin: 0;
     }
@@ -54,8 +57,8 @@
 
 #search {
     margin-top: 0.2em !important;
-    &::before{
-        content:"" !important;
+    &::before {
+        content: "" !important;
     }
     .twitter-typeahead {
         margin-top: 5px;

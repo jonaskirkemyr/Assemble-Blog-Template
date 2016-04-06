@@ -41,7 +41,7 @@ module Post {
                     substringRegex = new RegExp(q.substr(1), 'i');//create a regex without keyword sign `:`
                     for (var key in Typeahead.keywords) {//loop through every keyword registered..
                         if (substringRegex.test(key))//.. to check whether a match is found
-                            matches.push(":" + key);
+                            matches.push({keyword:key,title:":"+key});
                     }
 
                     var splitQuery: Array<string> = q.split(" ");//split query on space, which should be the search query for the input keyword
@@ -116,6 +116,7 @@ module Post {
                                 '</div>'
                             ].join('\n'),
                             suggestion: function(data): string {
+                                console.log("DATA",data);
                                 return Spa.App.namespace["postSuggestion"](data);
                             }
 

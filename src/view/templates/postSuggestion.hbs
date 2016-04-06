@@ -1,6 +1,11 @@
 <div class="suggestion">
-    <div class="header">{{title}}</div>
-    <div class="summary">{{summary}}</div>
-    <div class="category">Category: {{category}}</div>
+    {{#if keyword}}
+        <div class="header">{{keyword}}</div>
+    {{else}}
+        <a href="#{{title}}">
+            <div class="header">{{title}}</div>
+            <div class="summary">{{summary}}</div>
+            <div class="category">Category: {{category}}</div>
+        </a>
+    {{/if}}
 </div>
- 
