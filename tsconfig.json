@@ -1,6 +1,7 @@
 {
     "files": [
         "typings/main.d.ts",
+        "src/ts/js.d.ts",
         "src/ts/PostController.ts",
         "src/ts/PostRoute.ts",
         "src/ts/main.ts",

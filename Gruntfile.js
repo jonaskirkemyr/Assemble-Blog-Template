@@ -74,7 +74,8 @@ module.exports = function(grunt) {
                     sourceMap: true,
                     declaration: true,
                     references: [
-                        "typings/main.d.ts"
+                        "typings/main.d.ts",
+                        "src/ts/js.d.ts"
                     ]
                 }
             }
