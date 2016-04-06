@@ -15,6 +15,7 @@ module.exports = function(grunt) {
                 files: {
                     'dist/assets/js/main.min.js': ['src/js/**/*.js', '!src/js/helpers/*.js'],
                     'dist/assets/js/lib.min.js': ['build/js/lib.js'],
+                    'dist/assets/js/typeahead.min.js': ['build/js/typeahead.js'],
                     'dist/assets/js/templates.min.js': ['build/js/templates.js'],
                     'dist/assets/js/helpers.min.js': ['src/js/helpers/helpers.js']
                 }
@@ -52,8 +53,21 @@ module.exports = function(grunt) {
 
         typescript: {
             modules: {
-                src: ['src/ts/**/*.ts'],
+                src: ['src/ts/*.ts'],
                 dest: 'build/js/lib.js',
+                options: {
+                    module: 'commonjs',
+                    target: 'es5',
+                    sourceMap: true,
+                    declaration: true,
+                    references: [
+                        "typings/main.d.ts"
+                    ]
+                }
+            },
+            typeahead: {
+                src: ['src/ts/typeahead/*.ts'],
+                dest: 'build/js/typeahead.js',
                 options: {
                     module: 'commonjs',
                     target: 'es5',

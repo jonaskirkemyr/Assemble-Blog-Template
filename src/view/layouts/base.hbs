@@ -20,14 +20,22 @@
         
         <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/bloodhound.min.js"></script>
         <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/typeahead.jquery.min.js"></script>
+        
 
         <script src="{{config.path.baseurl}}{{config.path.asset}}/js/main.min.js"></script>
+        
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/packages/handlebars.min.js"></script>
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/helpers.min.js"></script>
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/templates.min.js"></script>
+
+        
+        <script src="{{config.path.baseurl}}{{config.path.asset}}/js/typeahead.min.js"></script>
         
         {{!disqus}}
         <script id="dsq-count-scr" src="//{{config.disqus}}.disqus.com/count.js" async></script>
         <!--[if lte IE 8]><script src="{{config.path.baseurl}}{{config.path.asset}}/js/respond.min.js"></script><![endif]--> 
 	</head>
-	<body>
+	<body onload="Post.Typeahead.init();">
         <div id="wrapper">
             <header id="header">{{>header}}</header>
             <section id="menu">{{>rightSidebar}}</section>

@@ -5,6 +5,7 @@
         "src/ts/PostRoute.ts",
         "src/ts/main.ts",
         "src/ts/Pagination.ts",
-        "src/ts/Typeahead.ts"
+        "src/ts/typeahead/Typeahead.ts",
+        "src/ts/typeahead/main.ts"
     ]
 }
