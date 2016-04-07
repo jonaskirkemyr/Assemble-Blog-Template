@@ -5,39 +5,33 @@
     </form>
 </section>
 
-<!-- Links -->
+<section>
+    <h4>Search tips:</h4>
+    <p>Start writing <code>:</code> to get a list of keywords available for searching</p>
+    <p>Example:
+        <code>:cat sample</code>
+    </p>
+    
+    
+</section>
 <section>
     <ul class="links">
-        <li>
-            <a href="#">
-                <h3>Lorem ipsum</h3>
-                <p>Feugiat tempus veroeros dolor</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <h3>Dolor sit amet</h3>
-                <p>Sed vitae justo condimentum</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <h3>Feugiat veroeros</h3>
-                <p>Phasellus sed ultricies mi congue</p>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <h3>Etiam sed consequat</h3>
-                <p>Porta lectus amet ultricies</p>
-            </a>
-        </li>
+        {{#getLatestEntries posts "created" 10}}
+            <li>
+                <a href="{{link category basename}}">
+                    <h3>{{title}}</h3>
+                    <p>{{preview}}</p>
+                </a>
+            </li>
+        {{/getLatestEntries}} 
     </ul>
 </section>
 
 <!-- Actions -->
+{{!
 <section>
     <ul class="actions vertical">
         <li><a href="#" class="button big fit">Log In</a></li>
     </ul>
 </section>
+}}
