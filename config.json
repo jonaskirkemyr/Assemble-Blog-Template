@@ -7,7 +7,7 @@
     "path": {
         "baseurl": "http://localhost:8080",
         "asset": "/assets",
-        "featureImg":"/assets/images/headers",
+        "featureImg": "/assets/images/headers",
         "img": "/assets/images"
     },
     "author": {
@@ -18,6 +18,32 @@
         }
     },
     "debug": false,
-    "disqus":"disqusIdentifier",
-    "namespace":"JST"
+    "disqus": "disqusIdentifier",
+    "namespace": "JST",
+    "links": {
+        "facebook": {
+            "url": "https://facebook.com",
+            "icon": "fa-facebook"
+        },
+        "instagram": {
+            "url": "https://instagram.com",
+            "icon": "fa-instagram"
+        },
+        "github": {
+            "url": "https://github.com",
+            "icon": "fa-github-square"
+        },
+        "twitter": {
+            "url": "https://twitter.com",
+            "icon": "fa-twitter"
+        },
+        "rss": {
+            "url": "http://rss.com",
+            "icon": "fa-rss"
+        },
+        "email": {
+            "url": "mailto:jonas@kirkemyr.no",
+            "icon": "fa-envelope"
+        }
+    }
 }
