@@ -26,6 +26,7 @@
     "grunt-newer": "^1.1.2",
     "grunt-typescript": "^0.8.0",
     "moment": "^2.11.2",
+    "tag-cloud": "^1.0.12",
     "uglify-save-license": "^0.4.1"
   },
   "dependencies": {

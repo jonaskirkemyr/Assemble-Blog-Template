@@ -117,6 +117,65 @@ var register = function(Handlebars, isClient) {
          */
         link: function(category, basename, options) {
             return config.path.baseurl + "/posts/" + category + "/" + basename + ".html";
+        },
+
+        /**
+         * Generates a text-cloud on all categories. The input should be
+         * a collection of pages which has a category attribute. Each
+         * category is counted and stored into an object, which is 
+         * later used for generating the npm text-cloud.
+         * @param {array} pages the pages to retrieve category from
+         * @returns {string} generated html code of tag cloud
+         * 
+         * Usage example
+         * {{{categoryCloud posts}}}
+         * Note: need three brackets to output html successfully
+         */
+        categoryCloud: function(pages, options) {
+            if (isClient === true)
+                return;
+
+            var obj = {};
+            var total = 0;
+
+            pages.forEach(function(page, index) {
+
+                var value = page.category;
+
+                if (value !== undefined) {
+                    ++total;
+                    if (obj[value] === undefined)
+                        obj[value] = 1;
+                    else
+                        obj[value]++;
+                }
+            });
+
+            var words = [];
+
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+
+                    words.push({
+                        tagName: key,
+                        count: obj[key],
+                        //weight: (10 / (100 / ((obj[key] / total) * 100))),
+                        href: "http://vg.no"
+                    });
+
+                }
+            }
+            var html = null;
+            tagCloud.tagCloud(words, function(err, data) {
+                html = data;
+            }, {
+                    additionalAttributes: {
+                        href: 'http://google.com?q={{tag}}'
+                    },
+                    htmlTag: 'a'
+                });
+
+            return html;
         }
 
     };
@@ -142,6 +201,7 @@ if (typeof window !== "undefined") {
 else {
     var moment = require("moment");
     var config = require("../../../config.json");
+    var tagCloud = require('tag-cloud');
     module.exports.register = register;
     module.exports.helpers = register(null, false);
 }
