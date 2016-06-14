@@ -45,5 +45,21 @@
             "url": "mailto:jonas@kirkemyr.no",
             "icon": "fa-envelope"
         }
+    },
+    "header":{
+        "pages":[
+            {
+                "basename":"about",
+                "preview":"About me"
+            },
+            {
+                "basename":"categories",
+                "preview":"Categories"
+            },
+            {
+                "basename":"tags",
+                "preview":"Tags"
+            }
+        ]
     }
 }
