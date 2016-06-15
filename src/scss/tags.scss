@@ -1,0 +1,63 @@
+#tagCloud {
+    padding-top: 0.625em;
+    text-align: left;
+    display: table-cell;
+    vertical-align: top;
+    font-size: 130%;
+    font-weight: bold;
+    a {
+        display: inline-block;
+        margin: .125em 0.75em .125em 0;
+        line-height: 1.2em;
+        word-break: break-all;
+        vertical-align: middle;
+        border-bottom: 0;
+    }
+    a:hover {
+        color:inherit;
+        text-decoration: inherit;
+    }
+    a {
+        text-decoration: none !important;
+    }
+    .tag0 {
+        color: #795548;
+        font-size: 0.875em;
+    }
+    .tag1 {
+        color: #FF5722;
+        font-size: 0.9375em;
+    }
+    .tag2 {
+        color: #FFC107;
+        font-size: 1em;
+    }
+    .tag3 {
+        color: #4CAF50;
+        font-size: 1.0625em;
+    }
+    .tag4 {
+        color: #00BCD4;
+        font-size: 1.125em;
+    }
+    .tag5 {
+        color: #3F51B5;
+        font-size: 1.1875em;
+    }
+    .tag6 {
+        color: #E91E63;
+        font-size: 1.25em;
+    }
+    .tag7 {
+        color: #F44336;
+        font-size: 1.375em;
+    }
+    .tag8 {
+        color: #CDDC39;
+        font-size: 1.4375em;
+    }
+    .tag9 {
+        color: #607D8B;
+        font-size: 1.5em;
+    }
+}
