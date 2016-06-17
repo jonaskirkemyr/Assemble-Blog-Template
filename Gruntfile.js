@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     "use strict";
 
     grunt.initConfig({
@@ -48,6 +48,12 @@ module.exports = function(grunt) {
                 cwd: './bower_components/font-awesome/fonts/',
                 src: ['**'],
                 dest: 'dist/assets/fonts/'
+            },
+            localPictures: {
+                expand: true,
+                cwd: './images/',
+                src: ['**'],
+                dest: 'dist/assets/images/'
             }
         },
 
@@ -166,7 +172,7 @@ module.exports = function(grunt) {
                 options: {
                     namespace: 'Data',
                     includePath: true,
-                    processName: function(filename) {
+                    processName: function (filename) {
                         return filename.toLowerCase().replace(".json", "");
                     }
                 },
@@ -184,11 +190,11 @@ module.exports = function(grunt) {
                     partialsPathRegex: /\/partials\//,
                     partialRegex: /.*\.hbs/,
 
-                    processName: function(fileName) {
+                    processName: function (fileName) {
                         return fileName.replace("src/view/templates/", '').replace(".hbs", '');
                     },
 
-                    processPartialName: function(fileName) {
+                    processPartialName: function (fileName) {
                         return fileName.replace("src/view/templates/partials/", '').replace("src/view/partials/post/", "").replace(".hbs", '');
                     }
                 },
