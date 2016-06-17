@@ -1,5 +1,12 @@
 <h1>Categories</h1>
 
-<div id="catCloud">
-    {{{categoryCloud posts}}}
+<div class="row mini-posts">
+{{#each (categoryList posts) }}
+    <article class="category-post 3u -1u">
+        <header>
+            <h3><a href="{{link}}">{{category}}</a></h3>
+        </header>
+        <a href="{{link}}" class="image"><img src="{{image}}" alt="{{category}}" /></a>
+    </article>
+{{/each}}
 </div>

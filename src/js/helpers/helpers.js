@@ -127,11 +127,26 @@ var register = function (Handlebars, isClient) {
                 return;
 
             var obj = {};
+            var validImageExts = [".png", ".jpg", ".jpeg"];//valid pictures to be used with categories
 
             pages.forEach(function (page, index) {
                 var value = page.category;
-                if (value !== undefined && obj[value]===undefined)
-                    obj[value]={category:value,link:config.path.baseurl+value}
+                if (value !== undefined && obj[value] === undefined) {
+                    var image = config.path.baseurl + config.path.img + "/categories/_default.png";//TODO: insert default category picture
+
+                    validImageExts.forEach(function (ext, index) {
+                        try {
+                            var filename = config.path.img + "/categories/" + value + ext;
+                            var file = fs.statSync("./dist" + filename);
+
+                            if (file.isFile())
+                                image = config.path.baseurl + filename;
+                        }
+                        catch (e) {/*couldn't find picture, continue search or us defaukt*/ }
+                    });
+
+                    obj[value] = { category: value, link: config.path.baseurl + value, image: image }
+                }
             });
 
             return obj;
@@ -283,6 +298,7 @@ if (typeof window !== "undefined") {
 // server
 else {
     var moment = require("moment");
+    var fs = require('fs');
     var config = require("../../../config.json");
     var tagCloud = require('tag-cloud');
     module.exports.register = register;
