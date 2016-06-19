@@ -119,9 +119,19 @@ var register = function (Handlebars, isClient) {
             return config.path.baseurl + "/posts/" + category + "/" + basename + ".html";
         },
 
-        /**
-         * 
-         */
+    /**
+      * Generates a list of all categories. The input should be
+      * a collection of pages which has a category attribute. Each
+      * category is stored into an object, which is 
+      * later used for creating list information fore ach category,
+      including its href, image and title
+      * @param {array} pages the pages to retrieve category from
+      * @returns {arrat} generated list of categories
+      * 
+      * Usage example
+      * {{{categoryList posts}}}
+      * Note: wrap inside '(' ')' to loop through each element in handlebars 
+      */
         categoryList: function (pages, options) {
             if (isClient === true)
                 return;
@@ -144,72 +154,12 @@ var register = function (Handlebars, isClient) {
                         }
                         catch (e) {/*couldn't find picture, continue search or us defaukt*/ }
                     });
-
-                    obj[value] = { category: value, link: config.path.baseurl + value, image: image }
+                    //TODO: change link when functionality for category filter is supported
+                    obj[value] = { category: value, categoryLink: "#"/*config.path.baseurl + "/"+value*/, image: image }
                 }
             });
 
             return obj;
-        },
-
-        /**
-         * Generates a text-cloud on all categories. The input should be
-         * a collection of pages which has a category attribute. Each
-         * category is counted and stored into an object, which is 
-         * later used for generating the npm text-cloud.
-         * @param {array} pages the pages to retrieve category from
-         * @returns {string} generated html code of tag cloud
-         * 
-         * Usage example
-         * {{{categoryCloud posts}}}
-         * Note: need three brackets to output html successfully
-         */
-        categoryCloud: function (pages, options) {
-            if (isClient === true)
-                return;
-
-            var obj = {};
-            var total = 0;
-
-            pages.forEach(function (page, index) {
-
-                var value = page.category;
-
-                if (value !== undefined) {
-                    ++total;
-                    if (obj[value] === undefined)
-                        obj[value] = 1;
-                    else
-                        obj[value]++;
-                }
-            });
-
-            var words = [];
-
-            for (var key in obj) {
-                if (obj.hasOwnProperty(key)) {
-
-                    words.push({
-                        tagName: key,
-                        count: obj[key],
-                        //weight: (10 / (100 / ((obj[key] / total) * 100))),
-                        href: "http://vg.no"
-                    });
-
-                }
-            }
-            var html = null;
-            tagCloud.tagCloud(words, function (err, data) {
-                html = data;
-            }, {
-                    additionalAttributes: {
-                        href: 'http://google.com?q={{tag}}'
-                    },
-                    htmlTag: 'a',
-                    randomize: true
-                });
-
-            return html;
         },
 
         /**
@@ -253,8 +203,9 @@ var register = function (Handlebars, isClient) {
                 if (obj.hasOwnProperty(tag)) {
                     tags.push({
                         tagName: tag,
-                        count: obj[tag],
-                        href: "http://jonastn.com"
+                        count: obj[tag]
+                        //TODO: see below for explanation why this is removed
+                        //href: "http://jonastn.com"
                     });
                 }
             }
@@ -265,9 +216,10 @@ var register = function (Handlebars, isClient) {
             tagCloud.tagCloud(tags, function (error, data) {
                 html = data;
             }, {
-                    additionalAttributes: {
-                        href: config.path.baseurl + "tags/{{tag}}"
-                    },
+                    /*TODO: provide href to tags when functionality for tag filtering is supported
+                        additionalAttributes: {
+                            href: config.path.baseurl + "tags/{{tag}}"
+                        },*/
                     htmlTag: 'a',
                     randomize: true,
                     classPrefix: "tag"
