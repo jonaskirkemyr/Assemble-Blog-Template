@@ -1,12 +1,12 @@
 <h1>Categories</h1>
 
-<div class="row mini-posts">
+<div class="row mini-categories">
 {{#each (categoryList posts) }}
-    <article class="category-post 3u -1u">
+    <article class="category-post 3u(medium) -1u(medium) 4u(small) 6u(xsmall)">
         <header>
-            <h3><a href="{{link}}">{{category}}</a></h3>
+            <h3><a href="{{categoryLink}}">{{category}}</a></h3>
         </header>
-        <a href="{{link}}" class="image"><img src="{{image}}" alt="{{category}}" /></a>
+        <a href="{{categoryLink}}" class="image"><img src="{{image}}" alt="{{category}}" /></a>
     </article>
 {{/each}}
 </div>

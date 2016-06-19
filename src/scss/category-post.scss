@@ -5,6 +5,8 @@
 		@include vendor('flex-direction', 'column-reverse');
 		background: _palette(bg);
 		border: solid 1px _palette(border);
+		max-width:300px;
+		margin:1em;
 
 		.image {
 			overflow: hidden;
@@ -29,6 +31,7 @@
 			min-height: 4em;
 			position: relative;
 			@include vendor('flex-grow', '1');
+			border-top: solid 1px _palette(border);
 
 			h3 {
                 font-size: 0.9em;
@@ -50,6 +53,35 @@
 				position: absolute;
 				right: 2em;
 				top: 2em;
+			}
+		}
+	}
+
+	.mini-categories {
+		margin: 0 0 _size(element-margin) 0;
+
+		@include breakpoint(large) {
+			@include vendor('display', 'flex');
+			@include vendor('flex-wrap', 'wrap');
+			width: calc(100% - #{_size(element-margin)});
+
+			> * {
+				margin: _size(element-margin) _size(element-margin) 0 0;
+				width: calc(50% - #{_size(element-margin)});
+			}
+
+			> :nth-child(-n + 2) {
+				margin-top: 0;
+			}
+		}
+
+		@include breakpoint(xsmall) {
+			display: block;
+			width: 100%;
+
+			> * {
+				margin: 0 0 _size(element-margin) 0;
+				width: 100%;
 			}
 		}
 	}

@@ -63,7 +63,7 @@
 		@include breakpoint(large) {
 			@include vendor('display', 'flex');
 			@include vendor('flex-wrap', 'wrap');
-			width: calc(100% + #{_size(element-margin)});
+			width: calc(100% - #{_size(element-margin)}); /* changed from + to -, to make sure a scrollbar won't appear on smaller screens*/
 
 			> * {
 				margin: _size(element-margin) _size(element-margin) 0 0;
